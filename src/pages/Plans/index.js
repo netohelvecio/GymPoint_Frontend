@@ -1,7 +1,8 @@
 import React from 'react';
 
+import Header from '~/components/Header';
 // import { Container } from './styles';
 
 export default function Plans() {
-  return <h1>plan</h1>;
+  return <Header />;
 }

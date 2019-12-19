@@ -1,7 +1,13 @@
 import React from 'react';
 
+import Header from '~/components/Header';
+
 // import { Container } from './styles';
 
 export default function Students() {
-  return <div />;
+  return (
+    <div>
+      <Header />
+    </div>
+  );
 }
