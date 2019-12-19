@@ -1,9 +1,12 @@
 import React from 'react';
 import { Input, Form } from '@rocketseat/unform';
 import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+
+import { signInRequest } from '~/store/modules/auth/actions';
 
 import { Container, Wrapper } from './styles';
-
 import logo from '~/assets/images/logo2x.png';
 
 // VALIDAÇÃO DO FORM
@@ -15,9 +18,14 @@ const schema = Yup.object().shape({
 });
 
 export default function SignIn() {
+  const dispatch = useDispatch();
+  // PEGA VALOR DO LOADING NO REDUX
+  const loading = useSelector(state => state.auth.loading);
+
   // FUNÇÃO A SER CHAMADA AO SUBMIT
-  function handleSubmit(data) {
-    console.tron.log(data);
+  function handleSubmit({ email, password }) {
+    // ENVIA VALORES PARA O REDUX
+    dispatch(signInRequest(email, password));
   }
 
   return (
@@ -42,7 +50,13 @@ export default function SignIn() {
             placeholder="*********"
           />
 
-          <button type="submit">Entrar no sistema</button>
+          <button type="submit">
+            {loading ? (
+              <AiOutlineLoading3Quarters color="#fff" size={20} />
+            ) : (
+              'Entrar no sistema'
+            )}
+          </button>
         </Form>
       </Container>
     </Wrapper>
