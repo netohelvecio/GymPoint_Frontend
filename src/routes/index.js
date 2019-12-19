@@ -4,7 +4,7 @@ import Route from './Route';
 
 import SignIn from '../pages/SignIn';
 
-import Students from '../pages/Students';
+import Students from '~/pages/Students';
 import StudentsRegister from '../pages/Students/StudentsRegister';
 import StudentsEdit from '../pages/Students/StudentsEdit';
 
@@ -18,6 +18,7 @@ import MatriculationsEdit from '../pages/Matriculations/MatriculationsEdit';
 
 import Answer from '../pages/Answer';
 
+// CRIAÇÃO DAS ROTAS
 export default function Routes() {
   return (
     <Switch>
