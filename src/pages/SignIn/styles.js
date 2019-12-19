@@ -14,6 +14,7 @@ export const Container = styled.div`
   max-width: 350px;
   padding: 60px 25px;
   border-radius: 8px;
+  box-shadow: 0px 2px 12px -5px rgba(0, 0, 0, 0.75);
 
   form {
     display: flex;
@@ -23,12 +24,13 @@ export const Container = styled.div`
     img {
       width: 160px;
       align-self: center;
+      margin-bottom: 15px;
     }
 
     label {
       font-size: 14px;
       font-weight: bold;
-      padding-bottom: 8px;
+      margin: 8px 0;
     }
 
     input {
@@ -37,8 +39,6 @@ export const Container = styled.div`
       border-radius: 4px;
       height: 44px;
       padding: 0 15px;
-      color: #fff;
-      margin: 0 0 20px;
 
       &::placeholder {
         color: #999999;
@@ -46,7 +46,7 @@ export const Container = styled.div`
     }
 
     button {
-      margin: 5px 0 0;
+      margin-top: 15px;
       height: 44px;
       background: #ee4d64;
       font-weight: bold;
@@ -59,6 +59,13 @@ export const Container = styled.div`
       &:hover {
         background: ${darken(0.05, '#ee4d64')};
       }
+    }
+
+    span {
+      color: #fa4571;
+      align-self: flex-start;
+      margin: 5px 0;
+      font-weight: bold;
     }
   }
 `;
