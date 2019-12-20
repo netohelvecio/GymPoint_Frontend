@@ -21,7 +21,7 @@ export const ContainerHeader = styled.div`
 export const RegisterOptions = styled.div`
   display: flex;
 
-  button {
+  a {
     background: #ee4d64;
     font-weight: bold;
     color: #fff;

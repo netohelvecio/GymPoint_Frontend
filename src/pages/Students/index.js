@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MdAdd, MdSearch } from 'react-icons/md';
+import { NavLink } from 'react-router-dom';
 
 import api from '~/services/api';
 
@@ -64,10 +65,10 @@ export default function Students() {
           <h1>Gerenciando alunos</h1>
 
           <RegisterOptions>
-            <button type="button">
+            <NavLink to="student/register">
               <MdAdd color="#fff" size={20} />
               CADASTRAR
-            </button>
+            </NavLink>
 
             <div>
               <MdSearch color="#999" size={20} />

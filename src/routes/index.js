@@ -24,7 +24,7 @@ export default function Routes() {
     <Switch>
       <Route path="/" exact component={SignIn} />
 
-      <Route path="/student" component={Students} isPrivate />
+      <Route path="/student" exact component={Students} isPrivate />
       <Route path="/student/register" component={StudentsRegister} isPrivate />
       <Route path="/student/:id" component={StudentsEdit} isPrivate />
 
