@@ -116,3 +116,30 @@ export const ButtonEdit = styled.button`
   padding: 6px;
   color: #4d85ee;
 `;
+
+export const Pagination = styled.div`
+  padding-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+
+  span {
+    color: #666;
+    font-size: 16px;
+  }
+
+  button {
+    border-radius: 4px;
+    outline: 0;
+    border: 0;
+    background: #ee4d64;
+    color: #fff;
+    padding: 8px;
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+  }
+`;
