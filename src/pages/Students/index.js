@@ -15,11 +15,13 @@ import {
 import ContainerLoading from '~/components/Loading';
 
 export default function Students() {
+  // STATES DA PAGINA
   const [student, setStudent] = useState([]);
   const [page, setPage] = useState(1);
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // CARREGA TODOS OS ESTUDANTES COM PAGINAÇÃO
   useEffect(() => {
     async function loadStudent() {
       setLoading(true);
@@ -37,6 +39,13 @@ export default function Students() {
     loadStudent();
   }, [name, page]);
 
+  // FILTRA NOME
+  function filterName(e) {
+    const studentName = e.target.value;
+
+    setName(studentName);
+  }
+
   return (
     <>
       <Container>
@@ -51,7 +60,12 @@ export default function Students() {
 
             <div>
               <MdSearch color="#999" size={20} />
-              <input type="text" placeholder="Buscar aluno" />
+              <input
+                type="text"
+                placeholder="Buscar aluno"
+                value={name}
+                onChange={filterName}
+              />
             </div>
           </RegisterOptions>
         </ContainerHeader>
