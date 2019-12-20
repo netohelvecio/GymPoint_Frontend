@@ -39,6 +39,8 @@ module.exports = {
     'jsx-a11y/no-static-element-interactions': 'off',
     'react/void-dom-elements-no-children': 'off',
     'jsx-a11y/control-has-associated-label': 'off',
+    'no-restricted-globals': 'off',
+    'no-alert': 'off',
   },
   settings: {
     'import/resolver': {

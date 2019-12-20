@@ -46,6 +46,17 @@ export default function Students() {
     setName(studentName);
   }
 
+  // FUNÇÃO PARA DELETAR ESTUDANTE
+  async function deleteStudent(id) {
+    const result = window.confirm('Deseja deletar aluno?');
+
+    if (result) {
+      await api.delete(`students/${id}`);
+
+      alert('Aluno deletado!');
+    }
+  }
+
   return (
     <>
       <Container>
@@ -90,7 +101,12 @@ export default function Students() {
                   <td>
                     <div>
                       <ButtonEdit type="button">editar</ButtonEdit>
-                      <ButtonDelete type="button">apagar</ButtonDelete>
+                      <ButtonDelete
+                        type="button"
+                        onClick={() => deleteStudent(s.id)}
+                      >
+                        apagar
+                      </ButtonDelete>
                     </div>
                   </td>
                 </tr>
