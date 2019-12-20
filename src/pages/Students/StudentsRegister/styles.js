@@ -3,7 +3,71 @@ import { darken } from 'polished';
 
 export const Container = styled.div`
   margin: 30px auto;
-  width: 80%;
+  width: 60%;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 4px;
+
+    span {
+      margin-top: 3px;
+      color: #f80d46;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 8px 0;
+      color: #444;
+    }
+
+    > input {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      height: 44px;
+      padding: 0 15px;
+
+      &::placeholder {
+        color: #999999;
+        font-size: 16px;
+      }
+    }
+
+    > div {
+      display: flex;
+
+      div {
+        display: flex;
+        flex: 1;
+        margin: 5px;
+        flex-direction: column;
+
+        input {
+          background: #fff;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          height: 44px;
+          padding: 0 15px;
+
+          &::placeholder {
+            color: #999999;
+            font-size: 16px;
+          }
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      }
+    }
+  }
 `;
 
 export const ContainerHeader = styled.div`

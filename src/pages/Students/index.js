@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MdAdd, MdSearch } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 
@@ -10,7 +11,6 @@ import {
   RegisterOptions,
   StudentTable,
   ButtonDelete,
-  ButtonEdit,
   Pagination,
 } from './styles';
 import ContainerLoading from '~/components/Loading';
@@ -54,7 +54,7 @@ export default function Students() {
     if (result) {
       await api.delete(`students/${id}`);
 
-      alert('Aluno deletado!');
+      toast.success('Aluno deletado!');
     }
   }
 
@@ -101,7 +101,9 @@ export default function Students() {
                   <td> {s.age} </td>
                   <td>
                     <div>
-                      <ButtonEdit type="button">editar</ButtonEdit>
+                      <NavLink type="button" to={`/student/${s.id}`}>
+                        editar
+                      </NavLink>
                       <ButtonDelete
                         type="button"
                         onClick={() => deleteStudent(s.id)}

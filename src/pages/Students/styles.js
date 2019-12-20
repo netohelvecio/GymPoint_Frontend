@@ -98,7 +98,15 @@ export const StudentTable = styled.table`
     div {
       display: flex;
       justify-content: flex-end;
-      align-items: center;
+      align-items: baseline;
+
+      a {
+        background: none;
+        border: 0;
+        font-size: 14px;
+        padding: 6px;
+        color: #4d85ee;
+      }
     }
   }
 `;
@@ -108,13 +116,7 @@ export const ButtonDelete = styled.button`
   border: 0;
   padding: 6px;
   color: #de3b3b;
-`;
-
-export const ButtonEdit = styled.button`
-  background: none;
-  border: 0;
-  padding: 6px;
-  color: #4d85ee;
+  font-size: 14px;
 `;
 
 export const Pagination = styled.div`
