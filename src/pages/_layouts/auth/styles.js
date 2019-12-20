@@ -3,6 +3,7 @@ import { darken } from 'polished';
 
 export const Wrapper = styled.div`
   height: 100%;
+  background: #ee4d64;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,7 +18,7 @@ const rotate = keyframes`
   }
 `;
 
-export const Container = styled.div`
+export const Content = styled.div`
   background: #fff;
   width: 100%;
   max-width: 350px;

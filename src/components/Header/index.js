@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { signOut } from '~/store/modules/auth/actions';
 
@@ -9,6 +9,7 @@ import logo from '~/assets/images/logo-header.png';
 
 export default function Header() {
   const dispatch = useDispatch();
+  const { profile } = useSelector(state => state.auth);
 
   // DISPARA FUNÇÃO PARA SAIR DO SISTEMA
   function handleSignOut() {
@@ -35,7 +36,7 @@ export default function Header() {
         </nav>
 
         <div>
-          <span>Neto</span>
+          <span>{profile.name}</span>
           <a onClick={handleSignOut}>Sair do sistema</a>
         </div>
       </Content>
