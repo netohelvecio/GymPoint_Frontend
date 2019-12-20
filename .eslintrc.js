@@ -38,6 +38,7 @@ module.exports = {
     'jsx-a11y/click-events-have-key-events': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',
     'react/void-dom-elements-no-children': 'off',
+    'jsx-a11y/control-has-associated-label': 'off',
   },
   settings: {
     'import/resolver': {

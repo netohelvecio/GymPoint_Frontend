@@ -27,7 +27,7 @@ export const Content = styled.div`
       font-weight: bold;
       font-size: 15px;
       color: #999;
-      padding: 0 5px;
+      padding: 0 8px;
     }
   }
 

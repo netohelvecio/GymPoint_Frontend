@@ -71,3 +71,48 @@ export const RegisterOptions = styled.div`
     }
   }
 `;
+
+export const StudentTable = styled.table`
+  width: 100%;
+  margin-top: 20px;
+  background: #fff;
+  padding: 30px 30px;
+  border-radius: 8px;
+
+  thead {
+    color: #444;
+    text-align: left;
+    padding-bottom: 10px;
+  }
+
+  td {
+    font-size: 16px;
+    color: #666;
+    text-align: left;
+    line-height: 20px;
+
+    & + td {
+      padding: 12px 0;
+    }
+
+    div {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+`;
+
+export const ButtonDelete = styled.button`
+  background: none;
+  border: 0;
+  padding: 6px;
+  color: #de3b3b;
+`;
+
+export const ButtonEdit = styled.button`
+  background: none;
+  border: 0;
+  padding: 6px;
+  color: #4d85ee;
+`;
