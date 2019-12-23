@@ -10,7 +10,7 @@ import {
   Container,
   ContainerHeader,
   RegisterOptions,
-  StudentTable,
+  PlanTable,
   ButtonDelete,
   Pagination,
 } from './styles';
@@ -22,7 +22,7 @@ export default function Plans() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    async function loadStudent() {
+    async function loadPlan() {
       setLoading(true);
       const response = await api.get('plans', {
         params: {
@@ -39,7 +39,7 @@ export default function Plans() {
       setLoading(false);
     }
 
-    loadStudent();
+    loadPlan();
   }, [page]);
 
   async function deletePlan(id) {
@@ -69,7 +69,7 @@ export default function Plans() {
         {loading ? (
           <ContainerLoading />
         ) : (
-          <StudentTable>
+          <PlanTable>
             <thead>
               <th width={400}>TÍTULO</th>
               <th>DURAÇÃO</th>
@@ -99,7 +99,7 @@ export default function Plans() {
                 </tr>
               ))}
             </tbody>
-          </StudentTable>
+          </PlanTable>
         )}
 
         <Pagination>

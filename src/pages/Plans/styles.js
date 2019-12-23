@@ -46,7 +46,7 @@ export const RegisterOptions = styled.div`
   }
 `;
 
-export const StudentTable = styled.table`
+export const PlanTable = styled.table`
   width: 100%;
   margin-top: 20px;
   background: #fff;
@@ -57,6 +57,13 @@ export const StudentTable = styled.table`
     color: #444;
     text-align: left;
     padding-bottom: 10px;
+
+    th {
+      & + th {
+        text-align: center;
+        vertical-align: middle;
+      }
+    }
   }
 
   td {
@@ -67,6 +74,9 @@ export const StudentTable = styled.table`
 
     & + td {
       padding: 12px 0;
+
+      text-align: center;
+      vertical-align: middle;
     }
 
     div {

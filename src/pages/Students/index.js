@@ -59,81 +59,79 @@ export default function Students() {
   }
 
   return (
-    <>
-      <Container>
-        <ContainerHeader>
-          <h1>Gerenciando alunos</h1>
+    <Container>
+      <ContainerHeader>
+        <h1>Gerenciando alunos</h1>
 
-          <RegisterOptions>
-            <NavLink to="student/register">
-              <MdAdd color="#fff" size={20} />
-              CADASTRAR
-            </NavLink>
+        <RegisterOptions>
+          <NavLink to="student/register">
+            <MdAdd color="#fff" size={20} />
+            CADASTRAR
+          </NavLink>
 
-            <div>
-              <MdSearch color="#999" size={20} />
-              <input
-                type="text"
-                placeholder="Buscar aluno"
-                value={name}
-                onChange={filterName}
-              />
-            </div>
-          </RegisterOptions>
-        </ContainerHeader>
+          <div>
+            <MdSearch color="#999" size={20} />
+            <input
+              type="text"
+              placeholder="Buscar aluno"
+              value={name}
+              onChange={filterName}
+            />
+          </div>
+        </RegisterOptions>
+      </ContainerHeader>
 
-        {loading ? (
-          <ContainerLoading />
-        ) : (
-          <StudentTable>
-            <thead>
-              <th width={400}>NOME</th>
-              <th>E-MAIL</th>
-              <th>IDADE</th>
-              <th />
-            </thead>
+      {loading ? (
+        <ContainerLoading />
+      ) : (
+        <StudentTable>
+          <thead>
+            <th width={400}>NOME</th>
+            <th>E-MAIL</th>
+            <th>IDADE</th>
+            <th />
+          </thead>
 
-            <tbody>
-              {student.map(s => (
-                <tr key={s.id.toString()}>
-                  <td> {s.name} </td>
-                  <td> {s.email} </td>
-                  <td> {s.age} </td>
-                  <td>
-                    <div>
-                      <NavLink type="button" to={`/student/${s.id}`}>
-                        editar
-                      </NavLink>
-                      <ButtonDelete
-                        type="button"
-                        onClick={() => deleteStudent(s.id)}
-                      >
-                        apagar
-                      </ButtonDelete>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </StudentTable>
-        )}
+          <tbody>
+            {student.map(s => (
+              <tr key={s.id.toString()}>
+                <td> {s.name} </td>
+                <td> {s.email} </td>
+                <td> {s.age} </td>
+                <td>
+                  <div>
+                    <NavLink type="button" to={`/student/${s.id}`}>
+                      editar
+                    </NavLink>
+                    <ButtonDelete
+                      type="button"
+                      onClick={() => deleteStudent(s.id)}
+                    >
+                      apagar
+                    </ButtonDelete>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </StudentTable>
+      )}
 
-        <Pagination>
-          <button
-            type="button"
-            disabled={page < 2}
-            onClick={() => setPage(page - 1)}
-          >
-            Anterior
-          </button>
+      <Pagination>
+        <button
+          type="button"
+          disabled={page < 2}
+          onClick={() => setPage(page - 1)}
+        >
+          Anterior
+        </button>
 
-          <span>Página {page} </span>
+        <span>Página {page} </span>
 
-          <button type="button" onClick={() => setPage(page + 1)}>
-            Próximo
-          </button>
-        </Pagination>
-      </Container>
-    </>
+        <button type="button" onClick={() => setPage(page + 1)}>
+          Próximo
+        </button>
+      </Pagination>
+    </Container>
   );
 }
