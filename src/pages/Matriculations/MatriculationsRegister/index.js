@@ -29,20 +29,28 @@ export default function MatriculationsRegister() {
 
   useEffect(() => {
     async function handlePlan() {
-      const response = await api.get('plans');
+      try {
+        const response = await api.get('plans');
 
-      setPlan(response.data);
+        setPlan(response.data);
+      } catch (error) {
+        toast.error('Erro ao listar planos');
+      }
     }
 
     async function handleStudent() {
-      const response = await api.get('students');
+      try {
+        const response = await api.get('students');
 
-      const data = response.data.map(s => ({
-        id: s.id.toString(),
-        title: s.name,
-      }));
+        const data = response.data.map(s => ({
+          id: s.id.toString(),
+          title: s.name,
+        }));
 
-      setStudent(data);
+        setStudent(data);
+      } catch (error) {
+        toast.error('Erro ao listar estudantes');
+      }
     }
 
     handleStudent();

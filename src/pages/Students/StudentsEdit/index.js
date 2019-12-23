@@ -29,15 +29,19 @@ export default function StudentsEdit({ match }) {
 
   useEffect(() => {
     async function handleStudent() {
-      const response = await api.get(`students/${id}`);
+      try {
+        const response = await api.get(`students/${id}`);
 
-      const data = {
-        ...response.data,
-        weight: `${response.data.weight}kg`,
-        height: `${response.data.height}m`,
-      };
+        const data = {
+          ...response.data,
+          weight: `${response.data.weight}kg`,
+          height: `${response.data.height}m`,
+        };
 
-      setStudent(data);
+        setStudent(data);
+      } catch (error) {
+        toast.error('Erro ao carregar informações de estudante');
+      }
     }
 
     handleStudent();

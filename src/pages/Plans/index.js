@@ -23,20 +23,24 @@ export default function Plans() {
 
   useEffect(() => {
     async function loadPlan() {
-      setLoading(true);
-      const response = await api.get('plans', {
-        params: {
-          page,
-        },
-      });
+      try {
+        setLoading(true);
+        const response = await api.get('plans', {
+          params: {
+            page,
+          },
+        });
 
-      const data = response.data.map(p => ({
-        ...p,
-        priceFormatted: formatPrice(p.price),
-      }));
+        const data = response.data.map(p => ({
+          ...p,
+          priceFormatted: formatPrice(p.price),
+        }));
 
-      setPlan(data);
-      setLoading(false);
+        setPlan(data);
+        setLoading(false);
+      } catch (error) {
+        toast.error('Erro ao listar planos');
+      }
     }
 
     loadPlan();
@@ -46,9 +50,13 @@ export default function Plans() {
     const result = window.confirm('Deseja deletar plano?');
 
     if (result) {
-      await api.delete(`plans/${id}`);
+      try {
+        await api.delete(`plans/${id}`);
 
-      toast.success('Plano deletado!');
+        toast.success('Plano deletado!');
+      } catch (error) {
+        toast.error('Erro ao deletar plano');
+      }
     }
   }
 

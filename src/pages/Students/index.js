@@ -25,16 +25,20 @@ export default function Students() {
   // CARREGA TODOS OS ESTUDANTES COM PAGINAÇÃO
   useEffect(() => {
     async function loadStudent() {
-      setLoading(true);
-      const response = await api.get('students', {
-        params: {
-          page,
-          name,
-        },
-      });
+      try {
+        setLoading(true);
+        const response = await api.get('students', {
+          params: {
+            page,
+            name,
+          },
+        });
 
-      setStudent(response.data);
-      setLoading(false);
+        setStudent(response.data);
+        setLoading(false);
+      } catch (error) {
+        toast.error('Erro ao listar estudantes');
+      }
     }
 
     loadStudent();
@@ -52,9 +56,13 @@ export default function Students() {
     const result = window.confirm('Deseja deletar aluno?');
 
     if (result) {
-      await api.delete(`students/${id}`);
+      try {
+        await api.delete(`students/${id}`);
 
-      toast.success('Aluno deletado!');
+        toast.success('Aluno deletado!');
+      } catch (error) {
+        toast.error('Error ao deletar estudante');
+      }
     }
   }
 

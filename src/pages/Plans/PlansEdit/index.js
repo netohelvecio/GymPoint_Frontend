@@ -30,18 +30,22 @@ export default function PlansEdit({ match }) {
 
   useEffect(() => {
     async function handlePlan() {
-      const response = await api.get(`plans/${id}`);
+      try {
+        const response = await api.get(`plans/${id}`);
 
-      const data = {
-        ...response.data,
-        priceFormatted: formatPrice(response.data.price),
-        priceTotal: formatPrice(response.data.price * response.data.duration),
-      };
+        const data = {
+          ...response.data,
+          priceFormatted: formatPrice(response.data.price),
+          priceTotal: formatPrice(response.data.price * response.data.duration),
+        };
 
-      setPrice(data.price);
-      setDuration(data.duration);
-      setTotal(data.priceTotal);
-      setPlan(data);
+        setPrice(data.price);
+        setDuration(data.duration);
+        setTotal(data.priceTotal);
+        setPlan(data);
+      } catch (error) {
+        toast.error('Erro ao carregar informações do plano');
+      }
     }
 
     handlePlan();
