@@ -88,7 +88,7 @@ export default function Matriculations() {
 
           <tbody>
             {matriculation.map(m => (
-              <tr key={m.id}>
+              <tr key={m.id.toString()}>
                 <td> {m.student.name} </td>
                 <td> {m.plan.title} </td>
                 <td> {m.startDateFormatted} </td>

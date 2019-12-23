@@ -33,6 +33,7 @@ export default function Plans() {
 
         const data = response.data.map(p => ({
           ...p,
+          durationFormatted: `${p.duration} mês`,
           priceFormatted: formatPrice(p.price),
         }));
 
@@ -61,71 +62,69 @@ export default function Plans() {
   }
 
   return (
-    <>
-      <Container>
-        <ContainerHeader>
-          <h1>Gerenciando planos</h1>
+    <Container>
+      <ContainerHeader>
+        <h1>Gerenciando planos</h1>
 
-          <RegisterOptions>
-            <NavLink to="plan/register">
-              <MdAdd color="#fff" size={20} />
-              CADASTRAR
-            </NavLink>
-          </RegisterOptions>
-        </ContainerHeader>
+        <RegisterOptions>
+          <NavLink to="plan/register">
+            <MdAdd color="#fff" size={20} />
+            CADASTRAR
+          </NavLink>
+        </RegisterOptions>
+      </ContainerHeader>
 
-        {loading ? (
-          <ContainerLoading />
-        ) : (
-          <PlanTable>
-            <thead>
-              <th width={400}>TÍTULO</th>
-              <th>DURAÇÃO</th>
-              <th>VALOR P/ MÊS</th>
-              <th />
-            </thead>
+      {loading ? (
+        <ContainerLoading />
+      ) : (
+        <PlanTable>
+          <thead>
+            <th width={400}>TÍTULO</th>
+            <th>DURAÇÃO</th>
+            <th>VALOR P/ MÊS</th>
+            <th />
+          </thead>
 
-            <tbody>
-              {plan.map(p => (
-                <tr>
-                  <td> {p.title} </td>
-                  <td> {p.duration} mês </td>
-                  <td> {p.priceFormatted} </td>
-                  <td>
-                    <div>
-                      <NavLink type="button" to={`/plan/${p.id}`}>
-                        editar
-                      </NavLink>
-                      <ButtonDelete
-                        type="button"
-                        onClick={() => deletePlan(p.id)}
-                      >
-                        apagar
-                      </ButtonDelete>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </PlanTable>
-        )}
+          <tbody>
+            {plan.map(p => (
+              <tr key={p.id.toString()}>
+                <td> {p.title} </td>
+                <td> {p.durationFormatted} </td>
+                <td> {p.priceFormatted} </td>
+                <td>
+                  <div>
+                    <NavLink type="button" to={`/plan/${p.id}`}>
+                      editar
+                    </NavLink>
+                    <ButtonDelete
+                      type="button"
+                      onClick={() => deletePlan(p.id)}
+                    >
+                      apagar
+                    </ButtonDelete>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </PlanTable>
+      )}
 
-        <Pagination>
-          <button
-            type="button"
-            disabled={page < 2}
-            onClick={() => setPage(page - 1)}
-          >
-            Anterior
-          </button>
+      <Pagination>
+        <button
+          type="button"
+          disabled={page < 2}
+          onClick={() => setPage(page - 1)}
+        >
+          Anterior
+        </button>
 
-          <span>Página {page} </span>
+        <span>Página {page} </span>
 
-          <button type="button" onClick={() => setPage(page + 1)}>
-            Próximo
-          </button>
-        </Pagination>
-      </Container>
-    </>
+        <button type="button" onClick={() => setPage(page + 1)}>
+          Próximo
+        </button>
+      </Pagination>
+    </Container>
   );
 }

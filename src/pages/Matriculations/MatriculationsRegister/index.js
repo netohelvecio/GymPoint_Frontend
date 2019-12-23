@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { Form, Input, Select } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import { addMonths, format } from 'date-fns';
+import { addMonths, format, addDays } from 'date-fns';
 
 import { formatPrice } from '~/util/format';
 import api from '~/services/api';
@@ -15,7 +15,7 @@ const schema = Yup.object().shape({
   studentId: Yup.string().required('O aluno é obrigatório'),
   planId: Yup.string().required('O plano é obrigatório'),
   start_date: Yup.date()
-    .typeError('Compo deve ser uma data')
+    .typeError('Campo deve ser uma data')
     .required('A data é obrigatória'),
 });
 
@@ -73,7 +73,7 @@ export default function MatriculationsRegister() {
   useEffect(() => {
     if (planSelect && startDate) {
       const endDateFormatted = format(
-        addMonths(new Date(startDate), planSelect.duration),
+        addMonths(addDays(new Date(startDate), 1), planSelect.duration),
         "dd'/'MM'/'yyyy"
       );
 
@@ -93,6 +93,7 @@ export default function MatriculationsRegister() {
       toast.error('ERROR AO CADASTRAR MATRÍCULA, VERIFIQUE OS DADOS!');
     }
   }
+
   return (
     <Container>
       <ContainerHeader>
