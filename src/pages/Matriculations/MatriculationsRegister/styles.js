@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
-import { Form } from '@rocketseat/unform';
 
 export const Container = styled.div`
   margin: 30px auto;
@@ -24,57 +23,6 @@ export const Container = styled.div`
       font-weight: bold;
       margin: 8px 5px;
       color: #444;
-    }
-
-    select {
-      background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      height: 44px;
-      padding: 0 15px;
-      color: #999999;
-      font-size: 16px;
-      margin: 0 5px;
-
-      option {
-        color: #000;
-        border: 0;
-        font-size: 16px;
-      }
-    }
-
-    > div {
-      display: flex;
-
-      div {
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-
-        input {
-          background: #fff;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          height: 44px;
-          padding: 0 15px;
-          margin: 0 5px;
-
-          &::placeholder {
-            color: #999999;
-            font-size: 16px;
-          }
-        }
-
-        input:read-only {
-          background-color: #eee;
-        }
-
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-          -webkit-appearance: none;
-          margin: 0;
-        }
-      }
     }
   }
 `;
@@ -145,6 +93,57 @@ export const RegisterOptions = styled.div`
   }
 `;
 
-export default styled(Form)`
-  background: red;
+export const SecondPartForm = styled.div`
+  display: flex;
+
+  div {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    input {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      height: 44px;
+      padding: 0 15px;
+      margin: 0 5px;
+
+      &::placeholder {
+        color: #999999;
+        font-size: 16px;
+      }
+    }
+
+    select {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      height: 44px;
+      padding: 0 15px;
+      font-size: 16px;
+      margin: 0 5px;
+
+      option {
+        color: #000;
+        border: 0;
+        font-size: 16px;
+
+        &::placeholder {
+          color: #999999;
+          font-size: 16px;
+        }
+      }
+    }
+
+    input:read-only {
+      background-color: #eee;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
 `;

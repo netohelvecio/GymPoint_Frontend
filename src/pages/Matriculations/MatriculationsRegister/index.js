@@ -8,8 +8,14 @@ import { addMonths, format, addDays } from 'date-fns';
 
 import { formatPrice } from '~/util/format';
 import api from '~/services/api';
+import ReactSelect from '~/components/ReactSelect';
 
-import { Container, ContainerHeader, RegisterOptions } from './styles';
+import {
+  Container,
+  ContainerHeader,
+  RegisterOptions,
+  SecondPartForm,
+} from './styles';
 
 const schema = Yup.object().shape({
   studentId: Yup.string().required('O aluno é obrigatório'),
@@ -113,15 +119,14 @@ export default function MatriculationsRegister() {
       </ContainerHeader>
 
       <Form schema={schema} onSubmit={handleSubmit} id="form">
-        <label htmlFor="student">ALUNO</label>
-        <Select
+        <ReactSelect
           name="studentId"
-          id="student"
           placeholder="Escolha o aluno"
           options={student}
+          label="ALUNO"
         />
 
-        <div>
+        <SecondPartForm>
           <div>
             <label htmlFor="plan">PLANO</label>
             <Select
@@ -164,7 +169,7 @@ export default function MatriculationsRegister() {
               readOnly
             />
           </div>
-        </div>
+        </SecondPartForm>
       </Form>
     </Container>
   );

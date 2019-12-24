@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
-import { Form } from '@rocketseat/unform';
 
 export const Container = styled.div`
   margin: 30px auto;
@@ -156,8 +155,4 @@ export const RegisterOptions = styled.div`
       background: ${darken(0.05, '#ee4d64')};
     }
   }
-`;
-
-export default styled(Form)`
-  background: red;
 `;
