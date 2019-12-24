@@ -11,6 +11,7 @@ import { formatPrice } from '~/util/format';
 import api from '~/services/api';
 
 import { Container, ContainerHeader, RegisterOptions } from './styles';
+import ContainerLoading from '~/components/Loading';
 
 const schema = Yup.object().shape({
   planId: Yup.string().required('O plano é obrigatório'),
@@ -28,6 +29,12 @@ export default function MatriculationsEdit({ match }) {
   const [endDate, setEndDate] = useState();
   const [startDate, setStartDate] = useState();
   const [priceTotal, setPriceTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  const initialExample = {
+    planId: 1,
+    studentId: 'kappa',
+  };
 
   useEffect(() => {
     async function handlePlan() {
@@ -46,6 +53,8 @@ export default function MatriculationsEdit({ match }) {
   useEffect(() => {
     async function handleStudent() {
       try {
+        setLoading(true);
+
         const response = await api.get(`matriculations/${id}`);
 
         const startDateFormatted = format(
@@ -60,8 +69,8 @@ export default function MatriculationsEdit({ match }) {
 
         const data = {
           ...response.data,
+          planId: response.data.plan.id,
           studentId: response.data.student.name,
-          planId: response.data.plan,
           start_date: startDateFormatted,
           endDate: endDateDateFormatted,
           priceTotal: formatPrice(response.data.price),
@@ -70,6 +79,9 @@ export default function MatriculationsEdit({ match }) {
         setPriceTotal(data.priceTotal);
         setEndDate(data.endDate);
         setMatriculation(data);
+        setPlanSelect(response.data.plan);
+
+        setLoading(false);
       } catch (error) {
         toast.error('Erro ao listar planos');
       }
@@ -132,59 +144,63 @@ export default function MatriculationsEdit({ match }) {
         </RegisterOptions>
       </ContainerHeader>
 
-      <Form
-        schema={schema}
-        onSubmit={handleSubmit}
-        initialData={matriculation}
-        id="form"
-      >
-        <label htmlFor="student">ALUNO</label>
-        <Input type="text" name="studentId" id="student" />
-
-        <div>
-          <div>
-            <label htmlFor="plan">PLANO</label>
-            <Select
-              name="planId"
-              id="plan"
-              options={plan}
-              onChange={getPlanValue}
-            />
-          </div>
+      {loading ? (
+        <ContainerLoading />
+      ) : (
+        <Form
+          schema={schema}
+          onSubmit={handleSubmit}
+          initialData={matriculation}
+          id="form"
+        >
+          <label htmlFor="student">ALUNO</label>
+          <Input type="text" name="studentId" id="student" />
 
           <div>
-            <label htmlFor="startDate">DATA DE INÍCIO</label>
-            <Input
-              type="date"
-              name="start_date"
-              id="startDate"
-              onChange={getDateStartValue}
-            />
-          </div>
+            <div>
+              <label htmlFor="plan">PLANO</label>
+              <Select
+                name="planId"
+                id="plan"
+                options={plan}
+                onChange={getPlanValue}
+              />
+            </div>
 
-          <div>
-            <label htmlFor="endDate">DATA DE TÉRMINO</label>
-            <Input
-              type="text"
-              name="endDate"
-              id="endDate"
-              value={endDate}
-              readOnly
-            />
-          </div>
+            <div>
+              <label htmlFor="startDate">DATA DE INÍCIO</label>
+              <Input
+                type="date"
+                name="start_date"
+                id="startDate"
+                onChange={getDateStartValue}
+              />
+            </div>
 
-          <div>
-            <label htmlFor="priceTotal">VALOR FINAL</label>
-            <Input
-              type="text"
-              name="priceTotal"
-              id="priceTotal"
-              value={priceTotal}
-              readOnly
-            />
+            <div>
+              <label htmlFor="endDate">DATA DE TÉRMINO</label>
+              <Input
+                type="text"
+                name="endDate"
+                id="endDate"
+                value={endDate}
+                readOnly
+              />
+            </div>
+
+            <div>
+              <label htmlFor="priceTotal">VALOR FINAL</label>
+              <Input
+                type="text"
+                name="priceTotal"
+                id="priceTotal"
+                value={priceTotal}
+                readOnly
+              />
+            </div>
           </div>
-        </div>
-      </Form>
+        </Form>
+      )}
     </Container>
   );
 }
