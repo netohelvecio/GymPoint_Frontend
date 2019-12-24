@@ -31,11 +31,6 @@ export default function MatriculationsEdit({ match }) {
   const [priceTotal, setPriceTotal] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const initialExample = {
-    planId: 1,
-    studentId: 'kappa',
-  };
-
   useEffect(() => {
     async function handlePlan() {
       try {

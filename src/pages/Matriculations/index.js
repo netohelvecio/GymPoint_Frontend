@@ -22,7 +22,12 @@ import ContainerLoading from '~/components/Loading';
 export default function Matriculations() {
   const [matriculation, setMatriculation] = useState([]);
   const [page, setPage] = useState(1);
+  const [porPage, setPorPage] = useState(6);
   const [loading, setLoading] = useState(false);
+
+  const indexOfLast = page * porPage;
+  const indexOfFirst = indexOfLast - porPage;
+  const currentTodos = matriculation.slice(indexOfFirst, indexOfLast);
 
   useEffect(() => {
     async function loadMatriculation() {
@@ -87,7 +92,7 @@ export default function Matriculations() {
           </thead>
 
           <tbody>
-            {matriculation.map(m => (
+            {currentTodos.map(m => (
               <tr key={m.id.toString()}>
                 <td> {m.student.name} </td>
                 <td> {m.plan.title} </td>
