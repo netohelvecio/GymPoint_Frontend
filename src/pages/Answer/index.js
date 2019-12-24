@@ -1,29 +1,66 @@
 import React, { useState, useEffect } from 'react';
+import Modal from 'react-modal';
 import { toast } from 'react-toastify';
+import { Form, Input } from '@rocketseat/unform';
+import * as Yup from 'yup';
 
 import api from '~/services/api';
 
-import { Container, ContainerHeader, AnswerTable, Pagination } from './styles';
+import {
+  Container,
+  ContainerHeader,
+  AnswerTable,
+  Pagination,
+  AnswerModal,
+} from './styles';
 import ContainerLoading from '~/components/Loading';
 
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
+
+Modal.setAppElement(document.getElementById('root'));
+
+const schema = Yup.object().shape({
+  answerText: Yup.string().required('A resposta é obrigatória'),
+});
+
 export default function Answer() {
-  const [answer, setAnswer] = useState([]);
+  const [answers, setAnswers] = useState([]);
+  const [answer, setAnswer] = useState({});
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [modal, setModal] = useState(false);
+
+  function openModal(answer_) {
+    setModal(true);
+    setAnswer(answer_);
+  }
+
+  function closeModal() {
+    setModal(false);
+  }
 
   useEffect(() => {
     async function handleAnswer() {
       try {
         setLoading(true);
 
-        const response = await api.get('/help-orders/answer', {
+        const response = await api.get('help-orders/answer', {
           params: {
             page,
           },
         });
 
         setLoading(false);
-        setAnswer(response.data);
+        setAnswers(response.data);
       } catch (error) {
         toast.error('Erro ao listar perguntas');
       }
@@ -31,6 +68,17 @@ export default function Answer() {
 
     handleAnswer();
   }, [page]);
+
+  async function handleSubmit({ answerText }) {
+    try {
+      await api.post(`help-orders/${answer.id}/answer`, { answer: answerText });
+
+      closeModal();
+      toast.success('Pergunta respondida');
+    } catch (error) {
+      toast.error('Erro ao responder a pergunta');
+    }
+  }
 
   return (
     <Container>
@@ -48,17 +96,45 @@ export default function Answer() {
           </thead>
 
           <tbody>
-            {answer.map(a => (
+            {answers.map(a => (
               <tr key={a.id.toString()}>
                 <td> {a.student.name} </td>
                 <td>
                   <div>
-                    <a href="">responder</a>
+                    <button type="button" onClick={() => openModal(a)}>
+                      responder
+                    </button>
                   </div>
                 </td>
               </tr>
             ))}
           </tbody>
+
+          <Modal
+            isOpen={modal}
+            onRequestClose={closeModal}
+            style={customStyles}
+            contentLabel="Example Modal"
+          >
+            <AnswerModal>
+              <span>PERGUNTA DO ALUNO</span>
+              <p>{answer.question}</p>
+
+              <Form schema={schema} onSubmit={handleSubmit}>
+                <label htmlFor="answer">SUA RESPOSTA</label>
+                <Input
+                  type="text"
+                  name="answerText"
+                  id="answer"
+                  placeholder="exemplo@email.com"
+                  multiline
+                  rows={8}
+                />
+
+                <button type="submit">Responder Aluno</button>
+              </Form>
+            </AnswerModal>
+          </Modal>
         </AnswerTable>
       )}
 

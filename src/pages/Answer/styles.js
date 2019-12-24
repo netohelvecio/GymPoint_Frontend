@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 export const Container = styled.div`
   margin: 30px auto;
@@ -55,7 +56,7 @@ export const AnswerTable = styled.table`
       justify-content: flex-end;
       align-items: baseline;
 
-      a {
+      button {
         background: none;
         border: 0;
         font-size: 14px;
@@ -89,6 +90,79 @@ export const Pagination = styled.div`
     &:disabled {
       opacity: 0.35;
       cursor: not-allowed;
+    }
+  }
+`;
+
+export const AnswerModal = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+
+  > span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #444;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 16px;
+    color: #666;
+    max-width: 400px;
+    line-height: 26px;
+    margin-bottom: 15px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    label {
+      font-size: 14px;
+      font-weight: bold;
+      color: #444;
+      text-align: left;
+      padding: 8px 0;
+    }
+
+    span {
+      color: #f80d46;
+      margin-top: 4px;
+    }
+
+    textarea {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 8px;
+      font-size: 16px;
+      resize: none;
+      min-width: 400px;
+
+      &::placeholder {
+        color: #999999;
+        font-size: 16px;
+      }
+    }
+
+    button {
+    background: #ee4d64;
+    font-weight: bold;
+    color: #fff;
+    border: 0;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background 0.2s;
+    height: 35px;
+    padding: 0 25px;
+    margin-top: 18px;
+
+    &:hover {
+      background: ${darken(0.05, '#ee4d64')};
     }
   }
 `;
