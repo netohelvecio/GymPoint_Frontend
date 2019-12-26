@@ -13,6 +13,7 @@ import api from '~/services/api';
 import { Container, ContainerHeader, RegisterOptions } from './styles';
 import ContainerLoading from '~/components/Loading';
 
+// VALIDAÇÃO DE FORM
 const schema = Yup.object().shape({
   planId: Yup.string().required('O plano é obrigatório'),
   start_date: Yup.date()
@@ -21,7 +22,7 @@ const schema = Yup.object().shape({
 });
 
 export default function MatriculationsEdit({ match }) {
-  const { id } = match.params;
+  const { id } = match.params; // PEGA O ID DO PLANO NA URL
 
   const [plan, setPlan] = useState([]);
   const [matriculation, setMatriculation] = useState({});
@@ -32,6 +33,7 @@ export default function MatriculationsEdit({ match }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // LISTA PLANOS EXISTENTES
     async function handlePlan() {
       try {
         const response = await api.get('plans');
@@ -46,12 +48,14 @@ export default function MatriculationsEdit({ match }) {
   }, []);
 
   useEffect(() => {
+    // PEGA INFORMAÇÃO DA MATRICULA
     async function handleStudent() {
       try {
         setLoading(true);
 
         const response = await api.get(`matriculations/${id}`);
 
+        // FORMATA DATA INICIAL E FINAL
         const startDateFormatted = format(
           parseISO(response.data.start_date),
           "yyyy'-'MM'-'dd"
@@ -71,6 +75,7 @@ export default function MatriculationsEdit({ match }) {
           priceTotal: formatPrice(response.data.price),
         };
 
+        // SETA PREÇO TOTAL - DATA FINAL - MATRICULA - PLANO SELECIONADO
         setPriceTotal(data.priceTotal);
         setEndDate(data.endDate);
         setMatriculation(data);
@@ -85,6 +90,7 @@ export default function MatriculationsEdit({ match }) {
     handleStudent();
   }, [id]);
 
+  // PEGA O PLANO SELECIONADO E CALCULA O VALOR TOTAL
   function getPlanValue(e) {
     const planId = Number(e.target.value);
     const plan_selected = plan.find(x => x.id === planId);
@@ -92,12 +98,14 @@ export default function MatriculationsEdit({ match }) {
     setPriceTotal(formatPrice(plan_selected.duration * plan_selected.price));
   }
 
+  // PEGA O VALOR DA DATA DE INICIO
   function getDateStartValue(e) {
     const { value } = e.target;
 
     setStartDate(value);
   }
 
+  // CALCULA QUANDO A MATRICULA VAI ACABAR
   useEffect(() => {
     if (planSelect && startDate) {
       const endDateFormatted = format(
@@ -109,6 +117,7 @@ export default function MatriculationsEdit({ match }) {
     }
   }, [planSelect, startDate]);
 
+  // ATUALIZA MATRICULA
   async function handleSubmit({ planId, start_date }) {
     try {
       await api.put(`matriculations/${id}`, {

@@ -9,7 +9,7 @@ import logo from '~/assets/images/logo-header.png';
 
 export default function Header() {
   const dispatch = useDispatch();
-  const { profile } = useSelector(state => state.auth);
+  const { profile } = useSelector(state => state.auth); //INFO DE USER LOGADO
 
   // DISPARA FUNÇÃO PARA SAIR DO SISTEMA
   function handleSignOut() {

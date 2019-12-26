@@ -11,6 +11,7 @@ import api from '~/services/api';
 
 import { Container, ContainerHeader, RegisterOptions } from './styles';
 
+// VALIDA FORM
 const schema = Yup.object().shape({
   title: Yup.string().required('O título é obrtigatório'),
   duration: Yup.number()
@@ -21,7 +22,7 @@ const schema = Yup.object().shape({
 });
 
 export default function PlansEdit({ match }) {
-  const { id } = match.params;
+  const { id } = match.params; // PEGA ID DO PLANO NA URL
 
   const [plan, setPlan] = useState({});
   const [total, setTotal] = useState(formatPrice(0));
@@ -29,6 +30,7 @@ export default function PlansEdit({ match }) {
   const [duration_, setDuration] = useState(0);
 
   useEffect(() => {
+    // CARREGA INFORMAÇÕES DO PLANO
     async function handlePlan() {
       try {
         const response = await api.get(`plans/${id}`);
@@ -39,6 +41,7 @@ export default function PlansEdit({ match }) {
           priceTotal: formatPrice(response.data.price * response.data.duration),
         };
 
+        // SETA VALORES DE PREÇO - DURAÇÃO - VALOR TOTAL
         setPrice(data.price);
         setDuration(data.duration);
         setTotal(data.priceTotal);
@@ -51,9 +54,11 @@ export default function PlansEdit({ match }) {
     handlePlan();
   }, [id]);
 
+  // EDITA PLANO
   async function handleSubmit({ title, duration, priceFormatted }) {
     let price;
 
+    // RETIRA CIFRÃO
     if (priceFormatted.includes('$')) {
       [, price] = priceFormatted.split('$');
     } else {
@@ -72,11 +77,13 @@ export default function PlansEdit({ match }) {
     }
   }
 
+  // PEGA O VALOR DA DURAÇÃO
   function handleDuration(e) {
     const { value } = e.target;
     setDuration(value);
   }
 
+  // PEGA O VALOR DO PREÇO
   function handlePrice(e) {
     if (e.target.value.includes('$')) {
       const [, value] = e.target.value.split('$');
@@ -87,6 +94,7 @@ export default function PlansEdit({ match }) {
     }
   }
 
+  // CALCULA O VALOR TOTAL
   useEffect(() => {
     setTotal(formatPrice(duration_ * price_));
   }, [duration_, price_]);

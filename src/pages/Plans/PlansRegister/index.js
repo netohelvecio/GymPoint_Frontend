@@ -10,6 +10,7 @@ import api from '~/services/api';
 
 import { Container, ContainerHeader, RegisterOptions } from './styles';
 
+// VALIDA FORM
 const schema = Yup.object().shape({
   title: Yup.string().required('O título é obrtigatório'),
   duration: Yup.number()
@@ -26,6 +27,7 @@ export default function PlansRegister() {
   const [price_, setPrice] = useState(0);
   const [duration_, setDuration] = useState(0);
 
+  // CADASTRA NOVO PLANO
   async function handleSubmit({ title, duration, price }) {
     try {
       await api.post('plans', {
@@ -40,16 +42,19 @@ export default function PlansRegister() {
     }
   }
 
+  // PEGA A DURAÇÃO DO PLANO
   function handleDuration(e) {
     const { value } = e.target;
     setDuration(value);
   }
 
+  // PEGA O VALOR DO PLANO
   function handlePrice(e) {
     const { value } = e.target;
     setPrice(value);
   }
 
+  // CALCULA O VALOR TOTAL DO PLANO
   useEffect(() => {
     setTotal(formatPrice(duration_ * price_));
   }, [duration_, price_]);

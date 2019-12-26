@@ -15,6 +15,7 @@ import {
 } from './styles';
 import ContainerLoading from '~/components/Loading';
 
+// ESTILIZAÇÃO DO MODAL
 const customStyles = {
   content: {
     top: '50%',
@@ -28,6 +29,7 @@ const customStyles = {
 
 Modal.setAppElement(document.getElementById('root'));
 
+// VALIDAÇÃO DO FORM
 const schema = Yup.object().shape({
   answerText: Yup.string().required('A resposta é obrigatória'),
 });
@@ -39,15 +41,18 @@ export default function Answer() {
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
 
+  // ABRE MODAL E GUARDA PERGUNTA NO STATE
   function openModal(answer_) {
     setModal(true);
     setAnswer(answer_);
   }
 
+  // FECHA MODAL
   function closeModal() {
     setModal(false);
   }
 
+  // LISTA PERGUNTAS EXISTENTES
   useEffect(() => {
     async function handleAnswer() {
       try {
@@ -69,6 +74,7 @@ export default function Answer() {
     handleAnswer();
   }, [page]);
 
+  // RESPONDE PERGUNTA
   async function handleSubmit({ answerText }) {
     try {
       await api.post(`help-orders/${answer.id}/answer`, { answer: answerText });

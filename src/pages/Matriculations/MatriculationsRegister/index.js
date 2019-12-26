@@ -17,6 +17,7 @@ import {
   SecondPartForm,
 } from './styles';
 
+// VALIDA FORM
 const schema = Yup.object().shape({
   studentId: Yup.string().required('O aluno é obrigatório'),
   planId: Yup.string().required('O plano é obrigatório'),
@@ -34,6 +35,7 @@ export default function MatriculationsRegister() {
   const [priceTotal, setPriceTotal] = useState(0);
 
   useEffect(() => {
+    // LISTA PLANOS
     async function handlePlan() {
       try {
         const response = await api.get('plans');
@@ -44,6 +46,7 @@ export default function MatriculationsRegister() {
       }
     }
 
+    // LISTA ESTUDANTES
     async function handleStudent() {
       try {
         const response = await api.get('students');
@@ -63,6 +66,7 @@ export default function MatriculationsRegister() {
     handlePlan();
   }, []);
 
+  // PEGA O PLANO SELECIONADA E CALCULA VALOR FINAL
   function getPlanValue(e) {
     const planId = Number(e.target.value);
     const plan_selected = plan.find(x => x.id === planId);
@@ -70,12 +74,14 @@ export default function MatriculationsRegister() {
     setPriceTotal(formatPrice(plan_selected.duration * plan_selected.price));
   }
 
+  // PEGA A DATA INICIAL
   function getDateStartValue(e) {
     const { value } = e.target;
 
     setStartDate(value);
   }
 
+  // CALCULA A DATA FINAL DA MATRICULA E FORMATA A DATA
   useEffect(() => {
     if (planSelect && startDate) {
       const endDateFormatted = format(
@@ -87,6 +93,7 @@ export default function MatriculationsRegister() {
     }
   }, [planSelect, startDate]);
 
+  // REALIZA MATRICULA
   async function handleSubmit({ studentId, planId, start_date }) {
     try {
       await api.post('matriculations', {

@@ -10,6 +10,7 @@ import api from '~/services/api';
 
 import { Container, ContainerHeader, RegisterOptions } from './styles';
 
+// VALIDA FORM
 const schema = Yup.object().shape({
   name: Yup.string().required('O nome é obrtigatório'),
   email: Yup.string()
@@ -25,13 +26,15 @@ const schema = Yup.object().shape({
 
 export default function StudentsEdit({ match }) {
   const [student, setStudent] = useState({});
-  const { id } = match.params;
+  const { id } = match.params; // PEGA ID DO ESTUDANTE NA URL
 
   useEffect(() => {
+    // CARREGA DADOS DO ESTUDANTE
     async function handleStudent() {
       try {
         const response = await api.get(`students/${id}`);
 
+        // FORMATA PESO E ALTURA
         const data = {
           ...response.data,
           weight: `${response.data.weight}kg`,
@@ -47,23 +50,23 @@ export default function StudentsEdit({ match }) {
     handleStudent();
   }, [id]);
 
+  // EDITA ESTUDANTE
   async function handleSubmit({ name, email, age, weight, height }) {
     try {
+      // FORMATA VALORES
       const [weightFormatted] = weight.split('k');
       const [heightFormatted] = height.split('m');
 
       weight = weightFormatted;
       height = heightFormatted;
 
-      const response = await api.put(`students/${id}`, {
+      await api.put(`students/${id}`, {
         name,
         email,
         age,
         weight,
         height,
       });
-
-      console.tron.log(response);
 
       toast.success('Estudante atualizado!');
     } catch (error) {

@@ -25,17 +25,20 @@ export default function Matriculations() {
   const [porPage, setPorPage] = useState(6);
   const [loading, setLoading] = useState(false);
 
+  // PAGINAÇÃO DA LISTA
   const indexOfLast = page * porPage;
   const indexOfFirst = indexOfLast - porPage;
   const currentTodos = matriculation.slice(indexOfFirst, indexOfLast);
 
   useEffect(() => {
+    // LISTA TODAS MATRICULAS
     async function loadMatriculation() {
       setLoading(true);
       const response = await api.get('matriculations', {
         page,
       });
 
+      // FORMATA DATAS
       const data = response.data.map(d => ({
         ...d,
         startDateFormatted: format(
@@ -57,6 +60,7 @@ export default function Matriculations() {
     loadMatriculation();
   }, [page]);
 
+  // DELETA MATRICULA
   async function deleteMatriculation(id) {
     const result = window.confirm('Deseja deletar aluno?');
     if (result) {

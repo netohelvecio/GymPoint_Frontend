@@ -22,6 +22,7 @@ export default function Plans() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // LISTA PLANOS EXISTENTES
     async function loadPlan() {
       try {
         setLoading(true);
@@ -31,6 +32,7 @@ export default function Plans() {
           },
         });
 
+        // FORMATA DATA
         const data = response.data.map(p => ({
           ...p,
           durationFormatted: `${p.duration} mês`,
@@ -47,6 +49,7 @@ export default function Plans() {
     loadPlan();
   }, [page]);
 
+  // DELETA PLANO
   async function deletePlan(id) {
     const result = window.confirm('Deseja deletar plano?');
 

@@ -9,6 +9,7 @@ import api from '~/services/api';
 
 import { Container, ContainerHeader, RegisterOptions } from './styles';
 
+// VALIDA FORM
 const schema = Yup.object().shape({
   name: Yup.string().required('O nome é obrtigatório'),
   email: Yup.string()
@@ -27,6 +28,7 @@ const schema = Yup.object().shape({
 });
 
 export default function StudentsRegister() {
+  // REGISTRA NOVO ESTUDANTE
   async function handleSubmit({ name, email, age, weight, height }) {
     try {
       await api.post('students', {

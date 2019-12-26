@@ -19,8 +19,10 @@ export default function RouteWrapper({
     return <Redirect to="/" />;
   }
 
+  // CARREGA LAYOUT DE ACORDO COM O VALOR DE SIGNED
   const Layout = signed ? DefaultLayout : AuthLayout;
 
+  // RETORNA LAYOUT
   return (
     <Route
       {...rest}
